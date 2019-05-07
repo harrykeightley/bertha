@@ -50,7 +50,7 @@ class SubmissionCrawler(object):
         self.view_code()
 
     def view_code(self):
-        folder = os.path.join(self.root + self.current_student)
+        folder = os.path.join(self.root, self.current_student)
         subprocess.Popen([*IDE_COMMAND, folder])
 
     def save_current_student(self):
