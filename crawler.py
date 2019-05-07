@@ -29,8 +29,8 @@ class SubmissionCrawler(object):
             return -1
         return self.students.index(self.current_student)  + 1
 
-    def is_student_dir(self, d):
-        return d.startswith('s') and d[1:].isnumeric()
+    def is_student_dir(self, dir):
+        return dir.startswith('s') and dir[1:].isnumeric()
 
     def get_total_students(self):
         return self.total_students
