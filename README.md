@@ -17,7 +17,7 @@ When you open it up for the first time the *student frame* should look like this
 ![Student frame](https://i.imgur.com/adGJqK5.png)
 - **View** : Pulls up the code for the current student.
 - **Save** : Add student to the set of saved students and update the ```.style``` file to reflect your marks.
-- **Next** : takes you to the next unsaved student.
+- **Next** : Takes you to the next unsaved student and attempts to open their code with your editor commands.
 - **Skip** : This is for if you've already done some marking, it adds the student to the saved set without modifying their style file.
 
 
