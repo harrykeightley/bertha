@@ -15,9 +15,9 @@ Harry's Clunky 2002 Marking tool.
 When you open it up for the first time the *student frame* should look like this:
 
 ![Student frame](https://i.imgur.com/adGJqK5.png)
-- **View** : Pulls up the code for the current student.
-- **Save** : Add student to the set of saved students and update the ```.style``` file to reflect your marks.
-- **Next** : Takes you to the next unsaved student and attempts to open their code with your editor commands.
+- **View** : Pulls up the code for the current student, must have a student selected for this to work (press next atleast once).
+- **Save** : Add student to the set of saved students and update their ```.style``` file to reflect your given marks.
+- **Next** : Takes you to the next unsaved student and attempts to open their code with your editor commands. Repeated presses of next without saving the current student will do nothing. You must either save or skip a student to proceed.
 - **Skip** : This is for if you've already done some marking, it adds the student to the saved set without modifying their style file.
 
 
