@@ -26,3 +26,5 @@ When you open it up for the first time the student frame should look like this:
 - The red ```1``` here shows that one deduction will be forgiven for this criteria.
 - Deductions are made with the minus button
 - You can reset marks on a specific criteria with the ```^``` button
+
+### Good luck!
