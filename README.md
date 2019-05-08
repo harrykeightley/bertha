@@ -12,7 +12,7 @@ Harry's Clunky 2002 Marking tool.
 
 ## How does it actually work?
 
-When you open it up for the first time the student frame should look like this:
+When you open it up for the first time the *student frame* should look like this:
 
 ![Student frame](https://i.imgur.com/adGJqK5.png)
 - **View** : Pulls up the code for the current student.
@@ -20,11 +20,13 @@ When you open it up for the first time the student frame should look like this:
 - **Next** : takes you to the next unsaved student.
 - **Skip** : This is for if you've already done some marking, it adds the student to the saved set without modifying their style file.
 
+
 ### For marking specific criteria
 
 ![Criteria Frame](https://i.imgur.com/nw57nN9.png)
+
 - The red ```1``` here shows that one deduction will be forgiven for this criteria.
-- Deductions are made with the minus button
+- Deductions are made with the ```-``` button
 - You can reset marks on a specific criteria with the ```^``` button
 
 ### Good luck!
