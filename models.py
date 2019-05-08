@@ -30,6 +30,9 @@ class Section(object):
     def reset(self):
         for criteria in self.criteria:
             criteria.reset()
+
+    def get_total_marks(self):
+        return self.total_marks
     
     def get_name(self):
         return self.name
@@ -37,6 +40,14 @@ class Section(object):
     def get_score(self):
         marks = self.calculate_section_marks()
         return f"({marks} / {self.total_marks})"
+
+    # Could be used to save how you marked a certain student.
+    def get_summary(self):
+        result = []
+        result.append(str(self))
+        for criteria in self.criteria:
+            result.append(str(criteria))
+        return "\n".join(result)
 
     def __str__(self):
         return (f"Section: {self.name}, {self.get_score()}")
@@ -47,35 +58,28 @@ class Section(object):
 
 class Criteria(object):
 
-    def __init__(self, description, total_marks, lower_cap=0):
+    def __init__(self, description, max_deductions):
         self.description = description
-        self.total_marks = total_marks
-        self.marks = total_marks # start off with full marks
-        self.lower_cap = lower_cap
+        self.max_deductions = max_deductions
+        self.deductions = 0 # start off with full marks
 
     def make_deduction(self):
-        self.marks = capped_decrement(self.marks, self.lower_cap)
+        self.deductions = min(self.max_deductions, self.deductions + 1)
 
     def reset(self):
-        self.marks = self.total_marks
+        self.deductions = 0
 
     def get_deductions(self):
-        return self.total_marks - self.marks
+        return self.deductions
 
     def get_description(self):
         return self.description
-
-    def get_total_marks(self):
-        return self.total_marks
-
-    def get_marks(self):
-        return self.marks
 
     def is_forgiveable(self):
         return False
 
     def get_score(self):
-        return f"({self.marks} / {self.total_marks})"
+        return f"-({self.deductions} / {self.max_deductions})"
 
     def __str__(self):
         return (f"Criteria({self.description[:15]}, {self.get_score()})")
@@ -83,8 +87,8 @@ class Criteria(object):
 
 class ForgiveableCriteria(Criteria):
 
-    def __init__(self, description, total_marks, total_lives):
-        super().__init__(description, total_marks)
+    def __init__(self, description, max_deductions, total_lives):
+        super().__init__(description, max_deductions)
         self.total_lives = total_lives
         self.lives = total_lives
 

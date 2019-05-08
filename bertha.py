@@ -1,4 +1,5 @@
 import models
+import random
 import tkinter as tk
 import argparse
 from crawler import SubmissionCrawler
@@ -7,7 +8,7 @@ CRITERIA = "criteria.json"
 SAVE_FILE = "state.pickle"
 
 BG_COLOUR = "White"
-RESET_BTN_COLOUR = "Orange"
+RESET_BTN_COLOUR = "blue"
 MINUS_BTN_COLOUR = "Red"
 
 LIVES_FONT = ("Helevetica", 14, "bold")
@@ -53,13 +54,15 @@ class MarkingToolApp(tk.Frame):
     def build_style(self):
         """ (str) Return style string (Hardcoded and shit implementation) """
         comments = self.comments.get("0.0", tk.END)
-        n, c, s, g = self.marking_frame.get_section_marks()
+        section_marks = self.marking_frame.get_section_marks()
+        sections = self.marking_frame.get_section_models()
+        style = []
 
-        return (f"Naming: {n}/5\n"
-                f"Commenting: {c}/6\n"
-                f"Structure and layout: {s}/10\n"
-                f"Good OO: {g}/4\n"
-                f"General Comments: {comments}")
+        for section, mark in zip(sections, section_marks):
+            style.append(f"{section.get_name()}: {mark}/{section.get_total_marks()}")
+        style.append(f"General Comments: {comments}")
+
+        return '\n'.join(style)
     
     def reset(self):
         """ Reset the marking widgets """
@@ -156,6 +159,9 @@ class MarkingFrame(tk.Frame):
         for section in self.sections:
             section.reset()
 
+    def get_section_models(self):
+        return self.section_models
+
     def get_section_marks(self):
         return [section.get_marks() for section in self.sections]
 
@@ -178,6 +184,7 @@ class MarkingSection(object):
 
         self.rows = []
         
+        # Pack all elements into one row.
         for i, criteria in enumerate(section.criteria, self.table_index + 1):
             row = CriteriaRow(parent, criteria, self.update_section)
             row.text.grid(row=i, sticky=tk.W)
@@ -199,6 +206,8 @@ class MarkingSection(object):
         return self.section.calculate_section_marks()
         
 class CriteriaRow(object):
+    """ Class grouping elements for a specific part of a criteria 
+    e.g. hungarian notation deductions"""
 
     def __init__(self, parent, criteria, parent_update):
         self.parent = parent
@@ -211,7 +220,7 @@ class CriteriaRow(object):
 
         self.score = tk.Label(parent, text=criteria.get_score())
 
-        self.reset_btn = tk.Button(parent, text='re', command=self.reset,
+        self.reset_btn = tk.Button(parent, text='^', command=self.reset,
                 width=BTN_WIDTH, fg=RESET_BTN_COLOUR)
     
         self.decrement_btn = tk.Button(parent, text="-", command=self.deduction,
@@ -261,9 +270,15 @@ def main():
     state = args.save
     criteria = args.criteria
 
+    descriptors = [
+        "Bodacious", "Beautiful", 'Badass', 'Big', 'Boppin', 'Baby', 'Berty',
+        "Beaming", "Bespoke", "Bodily", "Bertha", 
+        ]
+    description = descriptors[random.randint(0, len(descriptors) - 1)]
+
     # ooh tkinter my dear love, I'm back
     root = tk.Tk()
-    root.title('2002 Marking')
+    root.title(f'{description} Bertha')
     app = MarkingToolApp(root, student_dir, state, criteria, bg=BG_COLOUR)
     app.pack()
     root.mainloop()
